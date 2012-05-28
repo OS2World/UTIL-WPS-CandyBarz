@@ -13,3 +13,4 @@ COMPILE TOOLS
 
 AUTHORS
 =============
+Jack Troughton
