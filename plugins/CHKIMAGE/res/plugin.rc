@@ -1,0 +1,14 @@
+/* $Id: plugin.rc,v 1.1 1999/06/15 20:48:13 ktk Exp $ */
+
+/******************************************************************************
+
+	Copyright Netlabs, 1998, this code may not be used for any military purpose
+
+******************************************************************************/
+
+
+rcinclude plugin.dlg
+#include <os2.h>
+#include "plugin.h"
+
+// Define any other resources here.  Help tables, bitmaps, etc..

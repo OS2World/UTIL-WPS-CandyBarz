@@ -1,0 +1,18 @@
+LIBRARY CBZUTIL INITGLOBAL TERMGLOBAL
+DATA MULTIPLE NONSHARED
+DESCRIPTION "Utility Library to be used by CandyBarZ Plugins"
+PROTMODE
+EXPORTS
+   CBZGetColor          @1;
+   StringToLong         @2;
+   AddStringAttribute   @3;
+   AddLongAttribute     @4;
+   AddEnabledAttribute  @5;
+   PSBMBLTToSize        @6;
+   GetInstallDir        @7;
+;=============================================================================================================
+;
+;  Any Comments Could go here.
+;
+;=============================================================================================================
+

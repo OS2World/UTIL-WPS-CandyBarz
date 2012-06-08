@@ -1,0 +1,19 @@
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+#include "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "System background setup", DLGID_PLUGIN, 45, 32, 258, 159, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        PUSHBUTTON      "Ok", PBID_OK, 5, 3, 40, 12, WS_GROUP
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 53, 3, 40, 12, WS_GROUP
+        GROUPBOX        "Desktop background", GBID_DESKTOP, 5, 122, 246, 32
+        ENTRYFIELD      "", STID_DESKTOPBACKGROUND, 11, 132, 178, 8, 
+                        ES_MARGIN
+        PUSHBUTTON      "Browse...", PBID_BROWSEDESKTOPBG, 197, 130, 50, 12, 
+                        WS_GROUP
+    END
+END

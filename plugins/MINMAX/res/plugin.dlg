@@ -1,0 +1,51 @@
+/* $Id: plugin.dlg,v 1.1 1999/06/15 20:48:17 ktk Exp $ */
+
+/******************************************************************************
+
+  Copyright Netlabs, 1998, this code may not be used for any military purpose
+
+******************************************************************************/
+
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+#include "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Min/Max Image Plugin Properties", DLGID_PLUGIN, 0, 58, 200, 115, WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Image", GBID_IMAGEPROPERTIES, 5, 20, 190, 90
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Close Button", CBID_CLOSEENABLED, 10, 86, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Minimize Button", CBID_MINIMIZEENABLED, 10, 76, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Maximize Button", CBID_MAXIMIZEENABLED, 10, 66, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Restore Button", CBID_RESTOREENABLED, 10, 56, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Hide Button", CBID_HIDEENABLED, 10, 46, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        LTEXT           "Selected: ", STID_IMAGELABEL, 10, 36, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", EFID_IMAGE, 10, 26, 135, 7, ES_MARGIN
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Browse...", PBID_IMAGE, 150, 26, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Ok", PBID_OK, 5, 3, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 55, 3, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+    END
+END
+
+
+

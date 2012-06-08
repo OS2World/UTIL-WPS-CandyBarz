@@ -1,0 +1,21 @@
+LIBRARY SZEIMAGE INITGLOBAL TERMGLOBAL
+DATA MULTIPLE NONSHARED
+DESCRIPTION "Growable Images PlugIn for CandyBarZ by The OS/2 Netlabs"
+PROTMODE
+EXPORTS
+   CBZPluginInfo           @1;
+   CBZInit                 @2;
+   CBZApply                @3;
+   CBZSave                 @4;
+   CBZDestroy              @5;
+   CBZPluginRender         @6;
+   CBZPluginWndProc        @7;
+   CBZPluginSetupDlgProc   @8;
+   CBZWriteAttributes      @9;
+
+;=============================================================================================================
+;
+;  Any Comments Could go here.
+;
+;=============================================================================================================
+

@@ -1,0 +1,404 @@
+<html>
+    <title>CandyBarZ Plugin Documentation </title>
+
+    <body bgcolor="black" text="white">
+        <table width="100%">
+            <tr>
+                <td  colspan="2" width="100%" align="left"><font color="#0000FF" size=+1 ><b>void CBZPluginInfo(PLUGIN_INFO * pluginInfo)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> Allows the Plugin to return information about itself.</td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters: </b></td>
+            </tr>
+            <tr>
+                <td width="50"></td>
+                <td> <font color="#FF0000">PLUGIN_INFO *pluginInfo</font> = A pointer to the structure that this procedure should fill in.<br>
+                <br>
+                The PLUGIN_INFO structure is defined as:
+                <pre>
+    typedef struct
+    {
+        char PluginName[64];
+        char PluginAuthor[64];
+        char PluginDate[16];
+        long lWindowTypes;
+    }
+    PLUGIN_INFO;
+                </pre>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width="50"></td>
+                <td>NONE</td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width="50"></td>
+                <td>
+                    strcpy(pluginInfo->PluginName, "Plugin Name");<br>
+                    strcpy(pluginInfo->PluginAuthor, "Plugin Author");<br>
+                    strcpy(pluginInfo->PluginDate, "2 March, 1999");<br>
+                    pluginInfo->lWindowTypes = CBZ_TITLEBAR | CBZ_FRAME;<br>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>BOOL CBZInit(HINI hIni, char szName[], char szClass[], PVOID * pData)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> Called each time a window is created to initialize the Settings for each window.</td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                <font color="#FF0000">HINI hIni</font> = Handle of the CandyBarZ INI file.<br>
+                <font color="#FF0000">char szName[]</font> = Name of the EXE to load settings for.  If NULL load defaults. <br>
+                <font color="#FF0000">char szClass[]</font> = Name of the Window Class to load settings for (TITLEBAR, FRAME, etc..)<br>
+                <font color="#FF0000">PVOID * pData</font> = Pointer to the location of the plugins data.  This function MUST allocate the memory and set it to this pointer if the plugin has setting to store in memory.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                TRUE if Successful. <br>
+                FALSE if Unsucessful.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>BOOL CBZApply(char szClass[], KEY_VALUE * kv, int count, int enabledState, PVOID pData)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                <font color="#FF0000">char szClass[]</font> = Name of the Window Class to apply settings to (TITLEBAR, FRAME, etc..)<br>
+                <font color="#FF0000">KEY_VALUE * kv</font> = Pointer to an array of Key/Value attributes to apply.
+                <pre>
+    typedef struct
+    {
+        char *key;
+        char *value;
+    }
+    KEY_VALUE;</pre>
+                <font color="#FF0000">int count</font> = The number of key/value attributes in the kv[] array.<br>
+                <font color="#FF0000">int enabledState</font> = An integer indicating which states these settings apply to. In most cases 0 = Active Window and 1 = Inactive Window.<br>
+                <font color="#FF0000">PVOID pData</font> = Pointer to the instance of the Plugin's data to apply to.  If this is NULL, apply to the default settings that are stored in the Plugin's shared memory.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                TRUE if Successful. <br>
+                FALSE if Unsucessful.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>BOOL CBZSave(HINI hIni, char szClass[], PVOID pData, char szCustomName[])</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> This function is called to request that the plugin save it's setting into the INI file given through the hIni parameter. </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                <font color="#FF0000">HINI hIni</font> = Handle of the CandyBarZ INI file.<br>
+                <font color="#FF0000">char szClass[]</font> = Name of the Window Class to Save (TITLEBAR, FRAME, etc..)<br>
+                <font color="#FF0000">PVOID pData</font> = Pointer to the instance of the Plugin's data to save.  If this is NULL, save the default settings that are stored in the Plugin's shared memory.<br>
+                <font color="#FF0000">char szCustomName[]</font> = Name of the EXE name these setting apply to.  If this is NULL, these setting apply to the default.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                TRUE if Successful. <br>
+                FALSE if Unsucessful.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>BOOL CBZDestroy(PVOID pData)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> Called to allow the plugin to free it's memory and any allocated resources. </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                <font color="#FF0000">PVOID pData</font> = Pointer to the instance of the Plugin's data free.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                TRUE if Successful. <br>
+                FALSE if Unsucessful.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>BOOL CBZPluginRender(PSPAINT * pPaint, PVOID pData, BOOL bActive)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> Called to Request the Plugin to Paint itself using the parameters in the pPaint structure. </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                <font color="#FF0000">PSPAINT * pPaint</font> = A structure containing parameters for painting.<br>
+<pre>
+    // structure used for painting
+    typedef struct
+    {
+        HWND hwnd;                  // hwnd to draw to
+        HPS hps;                    // hps to draw in
+        HPS hpsWin;
+        RECTL rectlWindow;          // window rectangle
+        RECTL rectlUpdate;          // update rectangle
+        RECTL rectlText;            // text Rectangle
+        char szTitleText[CCHMAXPATH];      // titlebar text
+    }
+    PSPAINT;</pre>
+                <font color="#FF0000">PVOID pData</font> = Pointer to the instance of the Plugin's data to use for painting.<br>
+                <font color="#FF0000">BOOL bActive</font> = A flag indicating that this is the active or inactive state.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                TRUE if Successful. <br>
+                FALSE if Unsucessful.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>MRESULT EXPENTRY CBZPluginWndProc(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2, PVOID pData)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> Procedure used to allow the Plugin to process messages passed to the Window.</td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                <font color="#FF0000">HWND hwnd</font> = Handle to the Window<br>
+                <font color="#FF0000">ULONG msg</font> = Message<br>
+                <font color="#FF0000">MPARAM mp1</font> = 1st Message Parameter<br>
+                <font color="#FF0000">MPARAM mp2</font> = 2nd Message Parameter<br>
+                <font color="#FF0000">PVOID pData</font> = Pointer to the instance of the Plugin's data to use.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                    The Result of processing the given message.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>MRESULT EXPENTRY CBZPluginSetupDlgProc(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> The Dialog Procedure for the Plugin's Settings Dialog. (Used in ThemeBuilder)</td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                    The parameters are the same as a standard Dialog Procedure.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                    The result of processing the given Message.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <table width="100%">
+            <tr>
+                <td  colspan="2" align="left"><font color="#0000FF" size=+1 ><b>BOOL CBZWriteAttributes(char *retStr, PVOID pData)</b></font></td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Description:</b> Used for saving the plugins settings to a theme file.</td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Parameters:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                    <font color="#FF0000">char *retStr</font> = string to copy the plugin's setting to.<br>
+                    <font color="#FF0000">PVOID pData</font> =  Pointer to the instance of the Plugin's data to use.
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><b>Return Value:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                TRUE if Successful. <br>
+                FALSE if Unsucessful.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Example:</b></td>
+            </tr>
+            <tr>
+                <td width=50></td>
+                <td width="100%">
+                    Strongly Recommend using the AddEnabledAttribute(retStr, enabledState), AddLongAttribute(retStr, key, value), and AddStringAttribute(retStr, key, value) methods from the CandyBarZ Plugin Utility Library to assist in the implementation of this method.
+                </td>
+            </tr>
+        </table>
+
+
+    </body>
+</html>

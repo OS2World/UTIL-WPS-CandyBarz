@@ -1,0 +1,102 @@
+/******************************************************************************
+
+  Copyright Netlabs, 1998-2000, this code is under GPL
+
+******************************************************************************/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+#include "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Image Plugin Properties", DLGID_PLUGIN, 22, 32, 269, 183, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Checked Image", GBID_ACTIVEIMAGEPROPERTIES, 5, 101, 
+                        260, 78
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_ACTIVEENABLED, 11, 160, 60, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Unselected: ", STID_ACTIVEIMAGELABEL, 9, 149, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_ACTIVEIMAGE, 72, 149, 135, 7, ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEACTIVEIMAGE, 215, 148, 40, 
+                        10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Selected: ", STID_SELECTEDACTIVEIMAGELABEL, 9, 119, 
+                        60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_SELECTEDACTIVEIMAGE, 71, 119, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGESELECTEDACTIVEIMAGE, 215, 
+                        118, 40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        GROUPBOX        "Unchecked Image", GBID_INACTIVEIMAGEPROPERTIES, 5, 
+                        18, 260, 78
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_INACTIVEENABLED, 10, 77, 50, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Selected: ", STID_INACTIVEIMAGELABEL, 9, 40, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_INACTIVEIMAGE, 71, 66, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEINACTIVEIMAGE, 215, 65, 40, 
+                        10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Unselected: ", STID_SELECTEDINACTIVEIMAGELABEL, 9, 
+                        66, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_SELECTEDINACTIVEIMAGE, 71, 36, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGESELECTEDINACTIVEIMAGE, 215, 
+                        35, 40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Ok", PBID_OK, 5, 3, 40, 12
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 56, 3, 40, 12
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_ACTIVEIMAGEMASK, 72, 136, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEACTIVEIMAGEMASK, 215, 134, 
+                        40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_SELECTEDACTIVEIMAGEMASK, 71, 106, 135, 
+                        7, ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGESELECTEDACTIVEIMAGEMASK, 215, 
+                        104, 40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        RTEXT           "(Mask) ", 8107, 8, 105, 60, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        RTEXT           "(Mask) ", 8108, 8, 135, 60, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_INACTIVEIMAGEMASK, 71, 53, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_SELECTEDINACTIVEIMAGEMASK, 71, 23, 135, 
+                        7, ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEINACTIVEIMAGEMASK, 215, 52, 
+                        40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGESELECTEDINACTIVEIMAGEMASK, 
+                        215, 21, 40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        RTEXT           "(Mask) ", 8129, 8, 52, 60, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        RTEXT           "(Mask) ", 8130, 8, 22, 60, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END

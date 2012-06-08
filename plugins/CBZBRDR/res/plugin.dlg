@@ -1,0 +1,42 @@
+/* $Id: plugin.dlg,v 1.1 1999/06/15 20:48:06 ktk Exp $ */
+
+/******************************************************************************
+  Copyright Netlabs, 1998, this code may not be used for any military purpose
+******************************************************************************/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+#include "plugin.h"
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "CandyBarZ Border Properties", DLGID_PLUGIN, 0, 58, 200, 97, WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Active Border Colors", GBID_ACTIVEBORDERPROPERTIES, 5, 58, 190, 36
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_ACTIVEENABLED, 9, 76, 50, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "3D Highlight Dark Color...", PBID_ACTIVEDARKCOLOR, 9, 63, 89, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "3D Highlight Light Color...", PBID_ACTIVELIGHTCOLOR, 101, 63, 89, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        GROUPBOX        "Inactive Border Colors", GBID_INACTIVEBORDERPROPERTIES, 5, 18, 190, 36
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_INACTIVEENABLED, 9, 36, 50, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "3D Highlight Dark Color...", PBID_INACTIVEDARKCOLOR, 9, 23, 89, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "3D Highlight Light Color...", PBID_INACTIVELIGHTCOLOR, 101, 23, 89, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Ok", PBID_OK, 55, 5, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 105, 5, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END
+
+

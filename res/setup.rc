@@ -1,0 +1,153 @@
+/* $Id: setup.rc,v 1.3 2000/09/24 21:15:32 cwohlgemuth Exp $ */
+
+/******************************************************************************
+
+   Copyright Netlabs, 1998, this code may not be used for any military purpose
+
+******************************************************************************/
+
+
+rcinclude setup.dlg
+#include <os2.h>
+#include "setup.h"
+ICON DLGID_SETUP CBSETUP.ICO
+
+HELPTABLE HLPTBL_SETUP
+BEGIN
+    HELPITEM DLGID_SETUP, HLPSTBL_SETUP, HLPIDX_SETUP
+    HELPITEM DLGID_INSTALL, HLPSTBL_INSTALL, HLPIDX_INSTALL
+    HELPITEM DLGID_DEFAULTS, HLPSTBL_PAGE1, HLPIDX_PAGE1
+    HELPITEM DLGID_SETUPPAGE2, HLPSTBL_PAGE2, HLPIDX_PAGE2
+    HELPITEM DLGID_CUSTOMIZE, HLPSTBL_CUSTOMIZE, HLPIDX_CUSTOMIZE
+END
+HELPSUBTABLE HLPSTBL_SETUP
+BEGIN
+END
+HELPSUBTABLE HLPSTBL_INSTALL
+BEGIN
+    HELPSUBITEM CBID_DLLDEST, HLPIDX_DLLDEST
+    HELPSUBITEM EFID_INIDEST, HLPIDX_INIDEST
+    HELPSUBITEM MLEID_STATUS, HLPIDX_STATUS
+    HELPSUBITEM PBID_INSTALL, HLPIDX_INSTBUTTON
+    HELPSUBITEM PBID_UNINSTALL, HLPIDX_UNINSTALL
+END
+HELPSUBTABLE HLPSTBL_PAGE1
+BEGIN
+    HELPSUBITEM PBID_APPLY, HLPIDX_APPLYSAVE
+    HELPSUBITEM PBID_SAVE, HLPIDX_APPLYSAVE
+    HELPSUBITEM PBID_UNDO, HLPIDX_UNDODEF
+END
+HELPSUBTABLE HLPSTBL_PAGE2
+BEGIN
+    HELPSUBITEM PBID_CUSTOMADD, HLPIDX_ADDEDIT
+    HELPSUBITEM PBID_CUSTOMEDIT, HLPIDX_ADDEDIT
+    HELPSUBITEM PBID_CUSTOMCLONE, HLPIDX_CLONE
+    HELPSUBITEM PBID_CUSTOMREMOVE, HLPIDX_REMOVE
+END
+HELPSUBTABLE HLPSTBL_CLRCHANGE
+BEGIN
+END
+HELPSUBTABLE HLPSTBL_CUSTOMIZE
+BEGIN
+    HELPSUBITEM EFID_CUSTTITLE, HLPIDX_CUSTTITLE
+    HELPSUBITEM PBID_UNDO, HLPIDX_CUSTUNDO
+    HELPSUBITEM CHID_ENABLECB, HLPIDX_CHKBOXES
+    HELPSUBITEM CHID_ENABLECUST, HLPIDX_CHKBOXES
+    HELPSUBITEM PBID_CUSTSAVE, HLPIDX_SAVECANCEL
+    HELPSUBITEM PBID_CUSTCANCEL, HLPIDX_SAVECANCEL
+END
+
+STRINGTABLE
+BEGIN
+    //main frame
+    IDS_TITLE                       "CandyBarZ Setup"
+    IDS_EXIT_BUTTON                 "Exit"
+    IDS_HELP_BUTTON                 "Help..."
+
+    //Default theme page
+    IDS_DEFAULTS_TAB                "~Default Theme"
+    IDS_AVAILABLETHEMES_LABEL       "Available Themes"
+    IDS_PREVIEW_BUTTON              "~Preview..."
+    IDS_SELECT_BUTTON               "~Select"
+
+    IDS_SELECTEDTHEME_LABEL         "Selected Theme Properties"
+    IDS_THEMENAME_LABEL             "Name:"
+    IDS_THEMEAUTHOR_LABEL           "Author:"
+    IDS_THEMEDATE_LABEL             "Date:"
+    IDS_THEMEVERSION_LABEL          "Version:"
+    IDS_THEMEFILE_LABEL             "File:"
+
+    IDS_NONESPECIFIED_LABEL         "<None Specified>"
+    IDS_CURRENTTHEME_LABEL          "Current Theme"
+
+    IDS_APPLY_BUTTON                "~Apply"
+    IDS_SAVE_BUTTON                 "~Save"
+    IDS_UNDO_BUTTON                 "~Undo"
+
+    //Custom Theme page
+    IDS_CUSTOM_TAB                  "~Custom Themes"
+    IDS_ADD_BUTTON                  "~Add..."
+    IDS_EDIT_BUTTON                 "~Edit..."
+    IDS_CLONE_BUTTON                "~Clone..."
+    IDS_REMOVE_BUTTON               "~Remove"
+
+    //Install/Uninstall page
+    IDS_INSTALL_TAB                 "~Install/Uninstall"
+    IDS_STATUS_LABEL                "Status:"
+    IDS_INSTALL_BUTTON              "I~nstall"
+    IDS_UNINSTALL_BUTTON            "~Uninstall"
+
+    //Help system
+    IDS_HELP_TITLE                  "CandyBarZ Help"
+    IDS_HELP_FILE                   "CBSetup.hlp"
+
+    //Custom theme dialog
+    IDS_ENABLECBZ_CHECKBOX          "Enable ~CandyBarZ"
+    IDS_ENABLECUST_CHECKBOX         "E~nable Custom Theme"
+    IDS_CANCEL_BUTTON               "C~ancel"
+    IDS_CUSTTITLE_LABEL             "Title"
+    IDS_CUSTOM_TITLE                "Customize Window"
+
+    // About page
+    IDS_ABOUT_TAB                   "About"
+END
+
+/*************************************************************************************************************
+
+    $Id: setup.rc,v 1.3 2000/09/24 21:15:32 cwohlgemuth Exp $
+
+    $Log: setup.rc,v $
+    Revision 1.3  2000/09/24 21:15:32  cwohlgemuth
+    About page info added.
+
+    Revision 1.2  2000/03/26 06:51:24  enorman
+    resyncing with my local tree.
+
+    Revision 1.1  1999/06/15 20:48:22  ktk
+    Import
+
+    Revision 1.9  1998/09/27 23:30:56  enorman
+    Added help for the color cloning
+
+    Revision 1.8  1998/09/22 12:05:54  mwagner
+    Added better dialog support
+
+    Revision 1.6  1998/09/15 10:13:13  enorman
+    replaced reference to DLGID_SETUPPAGE1 with references to the two new dialogs .
+
+    Revision 1.5  1998/09/11 03:02:30  pgarner
+    Add the non-military use license
+
+    Revision 1.4  1998/09/11 02:45:43  pgarner
+    'Added
+
+    Revision 1.3  1998/08/31 19:35:58  enorman
+    Finished the implementation of 3D Text
+
+    Revision 1.2  1998/08/10 01:54:33  enorman
+    Added 3D text menu item to support the new 3D text
+    Revision 1.1  1998/06/08 14:18:59  pgarner
+    Initial Checkin
+
+
+*************************************************************************************************************/

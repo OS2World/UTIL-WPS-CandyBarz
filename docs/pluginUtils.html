@@ -1,0 +1,44 @@
+<html>
+<body>
+<title>CandyBarZ Plugin Utility Library Documentation </title>
+<font color="#FF0000" size=+1 >BOOL CBZGetColor(HWND hwnd, long *lColor);</font>
+<br><br>
+<b>Description:</b> Pops up a ColorChange Dialog and returns the RGB value of the color selected by the user.
+<br><br>
+<b>Parameters:</b>
+<br>
+<pre>
+   hwnd    = (in only) handle of the calling window
+   *lColor =  (in out) Address of the location to store the color.
+                    The value of this parameter when it is passed in is
+                    set as the initial color in the ColorChange Dialog.
+</pre>
+<b>Return Value:</b>
+<br>
+<pre>
+   TRUE  = User Pressed OK
+   FALSE = User Pressed Cancel
+</pre>
+
+<p>
+<hr>
+<font color="#FF0000" size=+1 >long StringToLong(char str[]);</font>
+<br><br>
+<b>Description:</b> Converts the string passed in to a long type and returns it
+<br><br>
+<b>Parameters:</b>
+<br>
+<pre>
+   str    = (in only) The string to be converted
+</pre>
+<p>
+<b>Return Value:</b>
+<br>
+<pre>
+   the long value of the given string
+</pre>
+<p>
+
+
+</body>
+</html>

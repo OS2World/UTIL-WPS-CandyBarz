@@ -1,0 +1,37 @@
+/* $Id: pluginUtils.dlg,v 1.1 1999/06/15 20:48:21 ktk Exp $ */
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+#include "pluginUtils.h"
+
+DLGTEMPLATE DLGID_COLORCHANGE LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Change Color", DLGID_COLORCHANGE, 26, 68, 271, 96, WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CTEXT           "Red", STID_RED, 5, 81, 188, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SLIDER          SLID_RED, 1, 63, 192, 16, SLS_SNAPTOINCREMENT | WS_GROUP
+                            CTLDATA 12, 0, 256, 0, 0, 0
+        SPINBUTTON      SPID_RED, 193, 67, 28, 12, SPBS_NUMERICONLY | SPBS_MASTER | WS_GROUP
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CTEXT           "Green", STID_GREEN, 5, 53, 188, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SLIDER          SLID_GREEN, 1, 35, 192, 16, SLS_SNAPTOINCREMENT | WS_GROUP
+                            CTLDATA 12, 0, 256, 0, 0, 0
+        SPINBUTTON      SPID_GREEN, 193, 39, 28, 12, SPBS_NUMERICONLY | SPBS_MASTER | WS_GROUP
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CTEXT           "Blue", STID_BLUE, 5, 25, 188, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SLIDER          SLID_BLUE, 1, 7, 192, 16, SLS_SNAPTOINCREMENT | WS_GROUP
+                            CTLDATA 12, 0, 256, 0, 0, 0
+        SPINBUTTON      SPID_BLUE, 193, 11, 28, 12, SPBS_NUMERICONLY | SPBS_MASTER | WS_GROUP
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        VALUESET        VSID_COLORPREVIEW, 226, 42, 35, 33, VS_RGB | WS_GROUP | NOT WS_TABSTOP
+                            CTLDATA 8, 0, 1, 1
+        DEFPUSHBUTTON   "~Ok", PBID_COLOROK, 226, 25, 35, 12 PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "~Cancel", PBID_COLORCANCEL, 226, 10, 35, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END
+

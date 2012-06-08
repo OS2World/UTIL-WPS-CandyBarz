@@ -1,0 +1,146 @@
+/* $Id: themeBuilder.dlg,v 1.3 2000/09/24 20:43:23 cwohlgemuth Exp $ */
+
+/******************************************************************************
+  Copyright Netlabs, 1998, this code may not be used for any military purpose
+******************************************************************************/
+
+#ifndef OS2_INCLUDED
+        #include <os2.h>
+#endif
+#include "themeBuilder.h"
+#include "CBZStrings.h"
+
+DLGTEMPLATE DLGID_THEMESETUP LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+  DIALOG               "CandyBarZ ThemeBuilder", DLGID_THEMESETUP, 22, 0, 238, 217, WS_VISIBLE,
+                        FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST | FCF_MINBUTTON | FCF_ICON
+     BEGIN
+        NOTEBOOK       NBID_SETUP, 3, 17, 232, 197,
+                       BKS_MAJORTABTOP | BKS_BACKPAGESTR | WS_GROUP | BKS_SPIRALBIND | BKS_STATUSTEXTRIGHT |
+                       BKS_ROUNDEDTABS | BKS_TABBEDDIALOG
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON     "Open...", PBID_OPEN, 5, 3, 35, 11
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON     "Save", PBID_SAVE, 43, 3, 35, 11
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON     "Preview...", PBID_PREVIEW, 81, 3, 39, 11
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON     "Help", PBID_HELP, 171, 3, 29, 11, BS_HELP
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        DEFPUSHBUTTON  "Exit", PBID_EXIT, 204, 3, 29, 11
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      END
+END
+
+DLGTEMPLATE DLGID_PREVIEW LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   DIALOG "CandyBarZ Themes Preview", DLGID_PREVIEW, 26, 68, 175, 96, NOT WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR  | FCF_MINBUTTON | FCF_MAXBUTTON
+   BEGIN
+                  GROUPBOX         "Buttons", ID_NONE, 10, 10, 80, 75
+                                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+                  AUTOCHECKBOX     "CheckBox", ID_NONE, 15, 40, 70, 10
+                                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+                  AUTORADIOBUTTON  "RadioButton #2", ID_NONE, 15, 53, 70, 10
+                                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+                  AUTORADIOBUTTON  "RadioButton #1", ID_NONE, 15, 63, 70, 10
+                                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+                  DEFPUSHBUTTON     "~Ok", PBID_OK, 15, 15, 70, 12
+                                    PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+                  LTEXT             "Sample Static Text", ID_NONE, 95, 70, 70, 10
+                                    PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+                  ENTRYFIELD        "EntryField", ID_NONE, 95, 60, 70, 7, ES_MARGIN
+                                    PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+         END
+END
+
+
+
+DLGTEMPLATE DLGID_DEFAULTS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   DIALOG "", DLGID_DEFAULTS, 36, 44, 171, 160, NOT FS_DLGBORDER | WS_VISIBLE
+   BEGIN
+        GROUPBOX        "Available Plugins", GBID_AVAILABLEPLUGINS, 10, 96, 190, 58
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LISTBOX         LBID_AVAILABLEPLUGINS, 15, 100, 135, 46
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LISTBOX         LBID_AVAILABLEPLUGINDLLS, 15, 100, 135, 36, NOT WS_VISIBLE
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Select", PBID_SELECTPLUGIN, 155, 100, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        GROUPBOX        "Selected Plugins", GBID_SELECTEDPLUGINS, 10, 38, 190, 58
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LISTBOX         LBID_SELECTEDPLUGINS, 15, 42, 135, 46
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Up", PBID_PLUGINUP, 155, 78, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Down", PBID_PLUGINDOWN, 155, 68, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Remove", PBID_PLUGINREMOVE, 155, 42, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        GROUPBOX        "Selected Plugin Properties", GBID_PLUGINPROPERTIES, 10, 7, 190, 31
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Name: ", STID_PLUGINNAMELABEL, 15, 23, 25, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<Name of the Plugin>", STID_PLUGINNAME, 40, 23, 110, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Author: ", STID_PLUGINAUTHORLABEL, 15, 16, 25, 8
+                            PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<Author of the Plugin>", STID_PLUGINAUTHOR, 40, 16, 110, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Date: ", STID_PLUGINDATELABEL, 15, 9, 25, 8
+                            PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<Creation Date of the Plugin>", STID_PLUGINDATE, 40, 9, 110, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Configure...", PBID_PLUGINCONFIGURE, 155, 9, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+   END
+END
+
+DLGTEMPLATE DLGID_INFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   DIALOG "", DLGID_INFO, 36, 44, 171, 160, NOT FS_DLGBORDER | WS_VISIBLE
+   BEGIN
+     CONTROL         INFO_BITMAP, INFO_BITMAP, 5, 100, 415, 125, WC_STATIC, SS_BITMAP |
+                        WS_VISIBLE
+
+      GROUPBOX    "Theme Information", GBID_THEMEINFO, 10, 24, 190, 71
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Theme Name:", STID_THEMENAMELABEL, 15, 79, 45, 8
+                  PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      ENTRYFIELD  "", EFID_THEMENAME, 63, 79, 132, 8, ES_MARGIN
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Theme Author:", STID_THEMEAUTHORLABEL, 15, 66, 45, 8
+                  PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      ENTRYFIELD  "", EFID_THEMEAUTHOR, 63, 66, 132, 8, ES_MARGIN
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Creation Date:", STID_THEMEDATELABEL, 15, 53, 45, 8
+                  PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      ENTRYFIELD  "", EFID_THEMEDATE, 63, 53, 132, 8, ES_MARGIN
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Version:", STID_THEMEVERSIONLABEL, 15, 40, 45, 8
+                  PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      ENTRYFIELD  "", EFID_THEMEVERSION, 63, 40, 132, 8, ES_MARGIN
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Filename:", STID_THEMEFILELABEL, 15, 27, 45, 8
+                  PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      ENTRYFIELD  "name.cbz", EFID_THEMEFILE, 63, 27, 132, 8, ES_MARGIN
+                  PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+   END
+END
+

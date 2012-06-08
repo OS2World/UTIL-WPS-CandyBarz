@@ -1,0 +1,276 @@
+/******************************************************************************
+  Copyright Netlabs, 1998, this code may not be used for any military purpose
+******************************************************************************/
+
+#ifndef OS2_INCLUDED
+        #include <os2.h>
+#endif
+#include "setup.h"
+
+DLGTEMPLATE DLGID_SETUP LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+  DIALOG               "Title", DLGID_SETUP, 22, 0, 238, 207, WS_VISIBLE,
+                        FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST | FCF_MINBUTTON | FCF_ICON
+     BEGIN
+        NOTEBOOK       NBID_SETUP, 3, 17, 232, 187,
+                       BKS_MAJORTABTOP | BKS_BACKPAGESTR | WS_GROUP | BKS_SPIRALBIND | BKS_STATUSTEXTRIGHT |
+                       BKS_ROUNDEDTABS | BKS_TABBEDDIALOG
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON     "Help", PBID_HELP, 149, 3, 29, 11, BS_HELP
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        DEFPUSHBUTTON  "Exit", PBID_EXIT, 182, 3, 29, 11
+                       PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      END
+END
+
+DLGTEMPLATE DLGID_PREVIEW LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "CandyBarZ Themes Preview", DLGID_PREVIEW, 26, 68, 175, 96, NOT WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR  | FCF_MINBUTTON | FCF_MAXBUTTON
+    BEGIN
+        GROUPBOX         "Buttons", ID_NONE, 10, 10, 80, 75
+                          PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        AUTOCHECKBOX     "CheckBox", CHID_PREVIEW, 15, 40, 70, 10
+                          PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTORADIOBUTTON  "RadioButton #2", RBID_PREVIEW2, 15, 53, 70, 10
+                          PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTORADIOBUTTON  "RadioButton #1", RBID_PREVIEW1, 15, 63, 70, 10
+                          PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        DEFPUSHBUTTON    "~Ok", PBID_COLOROK, 15, 15, 70, 12
+                          PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        LTEXT            "Sample Static Text", ID_NONE, 95, 70, 70, 10
+                          PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD       "EntryField", ID_NONE, 95, 60, 70, 7, ES_MARGIN
+                          PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END
+
+
+DLGTEMPLATE DLGID_DEFAULTS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   DIALOG "", DLGID_DEFAULTS, 36, 44, 171, 150, NOT FS_DLGBORDER | WS_VISIBLE
+   BEGIN
+      GROUPBOX    "Available Themes", GBID_AVAILABLETHEMES, 10, 88, 190, 60
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LISTBOX     LBID_AVAILABLETHEMES, 15, 91, 135, 48
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LISTBOX     LBID_AVAILABLETHEMEFILES, 15, 91, 135, 48, NOT WS_VISIBLE
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+      PUSHBUTTON  "Select", PBID_SELECTTHEME, 155, 106, 40, 10
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      PUSHBUTTON  "Preview", PBID_PREVIEWTHEME, 155, 116, 40, 10
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+      GROUPBOX    "Selected Theme Properties", GBID_THEMEPROPERTIES, 10, 36, 190, 49
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Name:", STID_THEMENAMELABEL, 15, 69, 25, 8
+                   PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "<None>", STID_THEMENAME, 43, 69, 152, 8
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Author:", STID_THEMEAUTHORLABEL, 15, 61, 25, 8
+                   PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "<None>", STID_THEMEAUTHOR, 43, 61, 152, 8
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Date:", STID_THEMEDATELABEL, 15, 53, 25, 8
+                   PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "<None>", STID_THEMEDATE, 43, 53, 152, 8
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "Version:", STID_THEMEVERSIONLABEL, 15, 45, 25, 8
+                   PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "<None>", STID_THEMEVERSION, 43, 45, 152, 8
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "File:", STID_THEMEFILELABEL, 15, 37, 25, 8
+                   PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      LTEXT       "<None>", STID_THEMEFILE, 43, 37, 152, 8
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+      GROUPBOX    "Current Theme", GBID_CURRENTTHEME, 10, 15, 190, 20
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      ENTRYFIELD  "<None>",EFID_CURRENTTHEME, 15, 19, 180, 7, ES_MARGIN | ES_READONLY |ES_CENTER
+                   PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CCCCCCL
+                   PRESPARAMS PP_FOREGROUNDCOLOR, 0x000000FFL
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+      PUSHBUTTON  "Apply", PBID_APPLY, 63, 2, 30, 11, WS_GROUP
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      PUSHBUTTON  "Save", PBID_SAVE, 96, 2, 30, 11
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+      PUSHBUTTON  "Undo", PBID_UNDO, 129, 2, 30, 11
+                   PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+   END
+END
+
+
+DLGTEMPLATE DLGID_INSTALL LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "", DLGID_INSTALL, 36, 44, 218, 129, NOT FS_DLGBORDER | WS_VISIBLE
+    BEGIN
+        LTEXT           "Status", STID_STATUS, 10, 53, 178, 8
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        MLE             "", MLEID_STATUS, 10, 18, 178, 34, MLS_READONLY | MLS_WORDWRAP | WS_GROUP
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        DEFPUSHBUTTON   "Install", PBID_INSTALL, 51, 3, 45, 12
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Uninstall", PBID_UNINSTALL, 102, 3, 45, 12
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END
+DLGTEMPLATE DLGID_SETUPPAGE2 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Custom Colors", DLGID_SETUPPAGE2, 40, 38, 198, 129, NOT FS_DLGBORDER | WS_VISIBLE
+    BEGIN
+        LISTBOX         LBID_CUSTOMLIST, 10, 10, 142, 109, LS_HORZSCROLL
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Add...", PBID_CUSTOMADD, 157, 79, 40, 11
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Edit...", PBID_CUSTOMEDIT, 157, 65, 40, 11
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Clone...", PBID_CUSTOMCLONE, 157, 51, 40, 11
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Remove", PBID_CUSTOMREMOVE, 157, 37, 40, 11
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END
+
+DLGTEMPLATE DLGID_CUSTOMIZE LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Customize Window", DLGID_CUSTOMIZE, 73, 33, 212, 200, WS_VISIBLE,
+                                         FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON
+    BEGIN
+        LTEXT           "Title", STID_CUSTTITLE, 5, 184, 20, 8
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "", EFID_CUSTTITLE, 5, 173, 202, 8, ES_MARGIN
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        GROUPBOX        "Available Themes", GBID_AVAILABLETHEMES, 10, 103, 190, 60
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LISTBOX         LBID_AVAILABLETHEMES, 15, 106, 135, 48
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LISTBOX         LBID_AVAILABLETHEMEFILES, 15, 106, 135, 48, NOT WS_VISIBLE
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Select", PBID_SELECTTHEME, 155, 121, 40, 10
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Preview", PBID_PREVIEWTHEME, 155, 131, 40, 10
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        GROUPBOX        "Selected Theme Properties", GBID_THEMEPROPERTIES, 10, 51, 190, 49
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Name:", STID_THEMENAMELABEL, 15, 84, 25, 8
+                         PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<None>", STID_THEMENAME, 43, 84, 152, 8
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Author:", STID_THEMEAUTHORLABEL, 15, 76, 25, 8
+                         PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<None>", STID_THEMEAUTHOR, 43, 76, 152, 8
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Date:", STID_THEMEDATELABEL, 15, 68, 25, 8
+                         PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<None>", STID_THEMEDATE, 43, 68, 152, 8
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Version:", STID_THEMEVERSIONLABEL, 15, 60, 25, 8
+                         PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<None>", STID_THEMEVERSION, 43, 60, 152, 8
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "File:", STID_THEMEFILELABEL, 15, 52, 25, 8
+                         PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "<None>", STID_THEMEFILE, 43, 52, 152, 8
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        GROUPBOX        "Current Theme", GBID_CURRENTTHEME, 10, 30, 190, 20
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "<None>",EFID_CURRENTTHEME, 15, 34, 180, 7, ES_MARGIN | ES_READONLY |ES_CENTER
+                         PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CCCCCCL
+                         PRESPARAMS PP_FOREGROUNDCOLOR, 0x000000FFL
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "U~ndo", PBID_UNDO, 5, 8, 30, 11
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Sa~ve", PBID_CUSTSAVE, 38, 8, 30, 11
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Cancel", PBID_CUSTCANCEL, 71, 8, 30, 11
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Enable ~CandyBarZ", CHID_ENABLECB, 126, 14, 81, 10
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "E~nable Custom Colors", CHID_ENABLECUST, 126, 4, 81, 10
+                         PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END
+
+DLGTEMPLATE 800 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "", DLGID_ABOUT, 40, 38, 198, 129, 
+           WS_SYNCPAINT | NOT FS_DLGBORDER | WS_VISIBLE, 
+    BEGIN
+        CTEXT           "CandyBarZ was brought to you by:", 8105, 18, 90, 164, 37,
+                        NOT WS_GROUP | DT_TOP | DT_WORDBREAK
+                         PRESPARAMS PP_FONTNAMESIZE, "14.Helv"
+
+        CTEXT           "", STID_WHO, 34, 12, 132, 78,
+                        NOT WS_GROUP | DT_TOP | DT_WORDBREAK
+
+    END
+END
+
+
+
+/*************************************************************************************************************
+
+         $Id: setup.dlg,v 1.3 2000/09/24 21:13:24 cwohlgemuth Exp $
+
+         $Log: setup.dlg,v $
+         Revision 1.3  2000/09/24 21:13:24  cwohlgemuth
+         Added About page.
+
+         Revision 1.2  2000/03/26 06:51:24  enorman
+         resyncing with my local tree.
+
+         Revision 1.1  1999/06/15 20:48:22  ktk
+         Import
+
+         Revision 1.12  1998/10/17 20:29:56  pgarner
+         Removed the reference to PSRT.DLL from the text label for the dll
+         destination entry field since we no longer have a psrt dll.
+         Revision 1.11  1998/09/30 05:09:45  mwagner
+         Made the PMView fix optional
+         Revision 1.10  1998/09/26 07:06:40  enorman
+         Added code for custom color cloning
+         Revision 1.9   1998/09/22 12:13:01     mwagner
+          Fixed some minor bugs
+         Revision 1.7   1998/09/15 10:12:48     enorman
+         split DefaultColors dialog into two dialogs
+         many changes to the dialog itself.
+         Revision 1.6   1998/09/11 03:02:29     pgarner
+         Add the non-military use license
+         Revision 1.5   1998/09/11 02:45:43     pgarner
+         'Added
+         Revision 1.4   1998/06/29 15:36:00     mwagner
+         Matts S3 and PMView fixes
+         Revision 1.3   1998/06/14 11:57:00     mwagner
+         Fixed a typo whereby BKS_TABBEDDIALOG was written as BKS_TABBiEDDIALOG!
+         Revision 1.2   1998/06/14 11:54:48     mwagner
+         Uncommented the BKS_TABBEDDIALOG attribute since this SHOULD ALWAYS be defined in a header somewhere.
+         Revision 1.1   1998/06/08 14:18:58     pgarner
+         Initial Checkin
+
+
+*************************************************************************************************************/
+
+
+
+
+
+
+

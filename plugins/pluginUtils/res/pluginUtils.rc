@@ -1,0 +1,13 @@
+/* $Id: pluginUtils.rc,v 1.1 1999/06/15 20:48:21 ktk Exp $ */
+
+/******************************************************************************
+
+   Copyright Netlabs, 1998, this code may not be used for any military purpose
+
+******************************************************************************/
+
+
+rcinclude pluginUtils.dlg
+#include <os2.h>
+#include "pluginUtils.h"
+

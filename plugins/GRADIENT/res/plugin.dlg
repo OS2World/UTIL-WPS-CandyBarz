@@ -1,0 +1,60 @@
+/* $Id: plugin.dlg,v 1.1 1999/06/15 20:48:14 ktk Exp $ */
+
+/******************************************************************************
+
+  Copyright Netlabs, 1998, this code may not be used for any military purpose
+
+******************************************************************************/
+
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+
+#include "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Gradient Properties", DLGID_PLUGIN, 0, 58, 150, 101, WS_VISIBLE, FCF_TITLEBAR
+
+    BEGIN
+
+        GROUPBOX        "Active Gradient Options", GBID_ACTIVEGRADIENTPROPERTIES, 6, 58, 136, 40
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Top Color...", PBID_ACTIVETOP, 10, 62, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Bottom Color...", PBID_ACTIVEBOTTOM, 77, 62, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        CHECKBOX        "Enabled", CBID_ACTIVEENABLED, 10, 74, 60, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Horizontal", CBID_ACTIVEHORIZ, 77, 74, 60, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+        GROUPBOX        "Inactive Gradient Options", GBID_INACTIVEGRADIENTPROPERTIES, 6, 18, 136, 40
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Top Color...", PBID_INACTIVETOP, 10, 22, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Bottom Color...", PBID_INACTIVEBOTTOM, 77, 22, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        CHECKBOX        "Enabled", CBID_INACTIVEENABLED, 10, 34, 60, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Horizontal", CBID_INACTIVEHORIZ, 77, 34, 60, 8
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+        PUSHBUTTON      "Ok", PBID_OK, 5, 3, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 55, 3, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+    END
+END
+
+
+
+

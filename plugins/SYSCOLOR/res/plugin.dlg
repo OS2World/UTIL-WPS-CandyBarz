@@ -1,0 +1,24 @@
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+#include "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "System colors setup", DLGID_PLUGIN, 45, 32, 289, 159, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", MLEID_SYSCOLOR, 5, 24, 159, 131, WC_MLE, 
+                        MLS_READONLY | MLS_WORDWRAP | MLS_VSCROLL | 
+                        WS_TABSTOP | WS_VISIBLE
+        GROUPBOX        "Save current colors", 8118, 169, 24, 113, 57
+        LTEXT           "This will create a Rexx skript to restore the curre"
+                        "nt color setup.", 8122, 173, 46, 103, 23, 
+                        DT_WORDBREAK | NOT WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Save...", PBID_SAVE, 235, 28, 40, 14
+        GROUPBOX        "Layout palette", 8121, 169, 107, 113, 40
+        PUSHBUTTON      "Open...", PBID_LAYOUTPALETTE, 203, 118, 40, 14
+        PUSHBUTTON      "Ok", PBID_OK, 5, 3, 40, 12, WS_GROUP
+    END
+END

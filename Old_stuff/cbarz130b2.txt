@@ -1,0 +1,15 @@
+; $Id: cbarz130b2.txt,v 1.1 2000/10/18 16:30:41 cwohlgemuth Exp $ 
+
+Upload Information Template for Walnut Creek OS/2 Hobbes
+--------------------------------------------------------
+
+Archive Name:cbarz130b2
+Author Name:OS/2 Netlabs Coders
+Author Email:warped@cs.montana.edu
+Author Other (Web page etc..):http://www.netlabs.org/candybarz/index.html
+Operating System/Version:32-bit OS/2
+Program Source:Author
+Replaces:cbarz100, cbarz101, cbarz110, cbarz120b, cbarz1202b cbarz130b1
+Proposed directory for placement:/pub/os2/util/wps
+Program Description (please do not exceed 47 characters):CandyBarZ 1.30 beta 2: System skinner
+

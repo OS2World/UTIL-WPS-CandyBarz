@@ -1,0 +1,68 @@
+/* $Id: plugin.dlg,v 1.1 1999/06/15 20:48:08 ktk Exp $ */
+
+/******************************************************************************
+
+  Copyright Netlabs, 1998, this code may not be used for any military purpose
+
+******************************************************************************/
+
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+#include "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Image Plugin Properties", DLGID_PLUGIN, 0, 58, 200, 141, WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Active Image", GBID_ACTIVEIMAGEPROPERTIES, 5, 75, 190, 59
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_ACTIVEENABLED, 10, 116, 60, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        CHECKBOX        "Tile?", CBID_ACTIVETILE, 100, 116, 50, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+        LTEXT           "Image Filename: ", STID_ACTIVEIMAGELABEL, 10, 108, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_ACTIVEIMAGE, 10, 100, 135, 7, ES_MARGIN
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Browse...", PBID_CHANGEACTIVEIMAGE, 150, 100, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+
+        GROUPBOX        "Inactive Image", GBID_INACTIVEIMAGEPROPERTIES, 5, 15, 190, 59
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_INACTIVEENABLED, 10, 56, 50, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        CHECKBOX        "Tile?", CBID_INACTIVETILE, 100, 56, 50, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+        LTEXT           "Image Filename: ", STID_INACTIVEIMAGELABEL, 10, 48, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_INACTIVEIMAGE, 10, 40, 135, 7, ES_MARGIN
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        PUSHBUTTON      "Browse...", PBID_CHANGEINACTIVEIMAGE, 150, 40, 40, 10
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+
+        PUSHBUTTON      "Ok", PBID_OK, 5, 3, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 55, 3, 40, 12
+                            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+    END
+END
+
+
+

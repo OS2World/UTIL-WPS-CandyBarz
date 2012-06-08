@@ -1,0 +1,40 @@
+;******************************************************************************
+;
+; Copyright Netlabs, 1998, this code may not be used for any military purpose
+;
+;******************************************************************************
+
+
+NAME THEMEBUILDER WINDOWAPI
+DESCRIPTION "CandyBarZ ThemeBuilder 1.30, by Eric Norman and OS\2 Netlabs"
+STACKSIZE 32768
+
+
+
+;=============================================================================================================
+;
+;
+;   $Id: themeBuilder.def,v 1.1 1999/06/15 20:48:31 ktk Exp $
+;
+;
+;   $Log: themeBuilder.def,v $
+;   Revision 1.1  1999/06/15 20:48:31  ktk
+;   Import
+;
+;   Revision 1.4  1998/09/11 03:02:28  pgarner
+;   Add the non-military use license
+;
+;   Revision 1.3  1998/09/11 02:45:42  pgarner
+;   'Added
+;
+;   Revision 1.2  1998/06/14 11:50:59  mwagner
+;   Added the line - IMPORTS DosReplaceModule = DOSCALLS.417 so that the appropriate DlgProc functions will
+;   have this function available.
+;
+;   Revision 1.1  1998/06/08 14:18:58  pgarner
+;   Initial Checkin
+;
+;
+;
+;=============================================================================================================
+

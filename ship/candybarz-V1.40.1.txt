@@ -1,0 +1,213 @@
+Wake up!!  CandyBarZ is here!  CandyBarZ is THE theme engine for
+OS/2.  CandyBarZ' primary feature is the ability to 'skin' the OS/2 public
+window classes.  Thus far Titlebars, frames, and buttons are skinable.  Menus
+are on the horizon as well as scrollbars.
+
+!NEW IN VERSION 1.40.1!
+- Just about everything!
+- Support for pseudo transparency for backgrounds of frame windows
+- Improvements for all button classes (Push, Radio, and Check). The background is
+  painted correctly, image drawing is accurate now.
+- MinMax buttons are drawn correctly now.
+- New plugins for color setup and desktop background!
+- A lot of bug fixes. ahem....
+- More bugs especially in the themebuilder and setup program...
+
+
+!!CAUTION!!
+Uninstall any previous version of CandyBarZ and delete the candybar.ini. The
+format has changed. Some themes require long filenames so installation must be
+on a drive which supports them. BTW FAT is so inferior nobody should use
+it nowadays.
+
+
+PLEASE read the instructions thoroughly before proceeding with installation.
+As CandyBarZ REPLACES PART OF OS/2, failure to follow the instructions
+accurately may result in severe problems.
+
+Online help is also available but does not yet reflect the current development
+status.
+
+
+The Files
+---------
+Just to make sure everything is in order before you start, check that the
+following files were extracted from the CandyBarZ archive:
+
+CandyBar.dll
+cbzutil.dll
+CBSetup.exe
+CBSetup.hlp
+CBBuild.exe
+CandyBar.txt (since you're reading it now...)
+plugins\cbztext.dll
+plugins\cbzimage.dll
+plugins\cbzlines.dll
+plugins\szeimage.dll
+plugins\chkimage.dll
+plugins\cbzbrdr.dll
+plugins\brdrimg.dll
+plugins\gradient.dll
+plugins\transimg.dll
+plugins\syscolor.dll
+plugins\sysbackg.dll
+plugins\minmax.dll
+
+
+Requirements
+------------
+OS/2.  CandyBarZ has been tested with OS/2 Warp 4.  It
+should work on any 32-bit OS/2 platform, however.
+
+MMOS/2 is used for image file support and must be installed.
+
+Some themes require long filename support. So installation on
+a filesystem which supports them (HPFS) is recommended!
+
+
+New Installation
+----------------
+Start the CBSetup program.  Until CandyBarZ is installed, the setup
+notebook has only one page, Install/Uninstall.  Libpath statement
+in config.sys will be updated to include the candybarz directory, and
+some settings for candybarz will be saved in the system ini files.
+(note that CandyBar.ini is NOT included in the archive, it will be
+created when CandyBarZ is first loaded).  Context sensitive help is
+available for all controls on this page (tab to the control and hit
+F1).
+
+Note: 
+Since this is merely a developer release the help isn't yet accurate.
+
+When the installation is complete, you must reboot so that OS/2 can
+load CandyBar.dll.
+
+NOTE: Whack-A-Mole uses a previous version of PSRT.DLL.  However, CandyBarZ
+no longer uses PSRT.DLL.  If you DO NOT have Whack-A-Mole installed, but DO
+have a previous version of CandyBarZ installed, you may remove the
+PSRT.DLL.
+
+
+Upgrade
+-------
+!!CAUTION!! - This version of CandyBarZ is NOT compatible with earlier versions.
+You should uninstall any previous version before installing this version.
+DO NOT REUSE YOUR CandyBar.ini!!!
+
+Start the CBSetup program and turn to the Install/Uninstall page.  Press
+the "Install" button.  Reboot to load the new DLLs.
+
+
+Customization
+-------------
+Once CandyBarZ is installed, two additional pages are added to the
+CandyBarZ (CBSetup.exe) installation notebook dialog, one for the default
+theme, and one for custom themes.  The Default Options page will let
+you set up the theme that CandyBarZ uses for all windows which don't
+have an explicit custom theme.  The Custom Options page of the installation
+dialog, lets you choose custom themes program by program, as well as
+disable CandyBarZ program by program.  And again, please be sure to click
+the "Save" button that appears on the first page of the dialog box if you
+wish your changes and/or customisations to be preserved between reboots!
+
+Caution:
+Whenever changing themes be sure to *always* select and apply the empty
+theme first!
+Afterwards you may apply the desired theme.
+
+Note:
+The program name on the custom theme page is case sensitive. Make sure you
+keep that in mind when building for example exception lists.
+
+
+Potential Problems
+---------------------
+First of all, this IS a BETA release!!!  Some programs may either have
+problems with CandyBarZ or completely ignore CandyBarZ.  In addition some
+programs (such as FileStar/2) change the title bar color to indicate
+certain program states to the user, etc.  Although this is not really a bug
+in either program, the user may wish to selectively disable CandyBarZ just
+for those programs.  (I.e.  have CandyBarZ change the titlebar color for
+ALL programs but the one for which it is disabled.)
+
+Also there have been several problems reported with users having certain S3
+Video Cards and/or Sounds enabled.  The most common symptom is playing the
+normal .wav sound files in a repeated loop on boot-up followed by the
+system locking up.  We think we have fixed this problem and we hope
+this version of the beta will put an end to the difficulties experienced by
+those users.  If you STILL experience trouble with CandyBarZ, PLEASE LET US
+KNOW!!!  In addition, please try disabling the system sounds and also
+report those results to us.  We would be most appreciative!
+
+Lastly a number of users have written to say that the customizations and
+other changes they have made dissappear when the machine is rebooted.  Once
+you have made such changes you must click the "save" button that appears at
+the bottom of the first page of the CBSetup notebook.  (Note this button is
+disabled until such a change is actually made.)
+
+A list of known problems is included in the online help, as well as
+instructions for selectively disabling CandyBarZ.
+
+There may be additional problems not listed in the online help.  Please
+report them to us at
+
+    candybarz@egroups.com
+
+
+The following problems are already known:
+
+- The theme builder and the setup tend to crash.
+- Some programs may crash (PhotoGraphics>pro, ...) with some themes 
+  and corrupt the candybar.ini file. Strange behaviour may be observed
+  afterwards. Delete the candybar.ini and add the crashed program to the
+  exception list. A reboot may be necessary.
+- The names in the custom theme/exception-list are case sensitive
+- Sometimes the background image remains locked when changing themes.
+  Restart the WPS if this happens.
+
+
+Registration
+------------
+There is none!  CandyBarZ has been released to OS/2 Netlabs and, as a
+consequence, is now FREE!
+
+You may help development. Visit http://www.netlabs.org for more information.
+The whole source is avaiable online via CVS.
+
+
+License and Disclaimer
+----------------------
+There are no warranties, express or implied.  The authors and OS/2 Netlabs
+may not be held responsible for any damage, direct or indirect, caused to
+your computer, productivity, or anything else by this software.  This
+software is not warranted to be free of bugs.
+
+You may use this software freely. If you want to reuse some code get in
+contact with netlabs. We are currently in the process of clarifying the
+licence but this process isn't finished yet.
+
+
+History
+-------
+24 July, 1997       1.00    Initial release
+02 August, 1997     1.01    Fix lots of bugs, probably introduce some
+                            others
+02 September, 1997  1.10    Add horizontal gradients, fill option, 3D
+                            border highlight, clean up CBSetup some, fix
+                            bugs, some optimizations
+20 September, 1998  1.20    Fix bugs, of course.  Add 3D text, redesign
+                            CBSetup, add image support, add PMView and S3
+                            workarounds
+28 November, 1998   1.202b  Fixed an incompatibility with Object Desktop and our
+                PMView fix.
+                Removed dependency on MMOS/2 because it was causing
+                looping system sounds on some systems.  For now only
+                bitmaps are supported for titlebar images.
+14 May, 1999        1.30 b1 First public release using the new plugin interface and
+                            Buttons/Frames have been added.
+                    1.30 b2 Bugfix release
+
+17 Oct 2000         1.40.1  New beta with a load of new features. CB is becoming
+                            a complete theme engine now.
+
+

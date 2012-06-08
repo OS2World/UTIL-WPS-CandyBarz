@@ -1,0 +1,115 @@
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+#include "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Growable Image Plugin Properties", DLGID_PLUGIN, 0, 24, 200, 
+            200, WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Active Image", GBID_ACTIVEIMAGEPROPERTIES, 5, 109, 
+                        190, 87
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_ACTIVEENABLED, 10, 176, 50, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Image Filename: ", STID_ACTIVEIMAGELABEL, 10, 168, 
+                        60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_ACTIVEIMAGE, 10, 160, 135, 7, ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEACTIVEIMAGE, 150, 160, 40, 
+                        10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Image Mask: ", 8103, 10, 146, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_ACTIVEIMAGEMASK, 10, 137, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEACTIVEIMAGEMASK, 150, 136, 
+                        40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Top: ", 100, 10, 123, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_ACTIVETOP, 10, 114, 35, 10, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTRIGHT | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Bottom: ", 100, 50, 123, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_ACTIVEBOTTOM, 50, 114, 35, 10, 
+                        SPBS_NUMERICONLY | SPBS_MASTER | SPBS_JUSTRIGHT | 
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Left: ", 100, 90, 123, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_ACTIVELEFT, 90, 114, 35, 10, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTRIGHT | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Right: ", 100, 130, 123, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_ACTIVERIGHT, 130, 114, 35, 10, 
+                        SPBS_NUMERICONLY | SPBS_MASTER | SPBS_JUSTRIGHT | 
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        GROUPBOX        "Inactive Image", GBID_INACTIVEIMAGEPROPERTIES, 5, 
+                        21, 190, 86
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_INACTIVEENABLED, 10, 88, 50, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Image Filename: ", STID_INACTIVEIMAGELABEL, 10, 80, 
+                        60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_INACTIVEIMAGE, 10, 72, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEINACTIVEIMAGE, 150, 71, 40, 
+                        10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Image Mask: ", 8106, 10, 57, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_INACTIVEIMAGEMASK, 10, 49, 135, 7, 
+                        ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEINACTIVEIMAGEMASK, 150, 48, 
+                        40, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Top: ", 100, 9, 35, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_INACTIVETOP, 10, 26, 35, 10, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTRIGHT | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Bottom: ", 100, 49, 35, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_INACTIVEBOTTOM, 50, 26, 35, 10, 
+                        SPBS_NUMERICONLY | SPBS_MASTER | SPBS_JUSTRIGHT | 
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Left: ", 100, 89, 35, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_INACTIVELEFT, 90, 26, 35, 10, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTRIGHT | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Right: ", 100, 129, 35, 35, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SPINBUTTON      SPBID_INACTIVERIGHT, 130, 26, 35, 10, 
+                        SPBS_NUMERICONLY | SPBS_MASTER | SPBS_JUSTRIGHT | 
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Ok", PBID_OK, 5, 4, 40, 12
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 55, 4, 40, 12
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END

@@ -1,0 +1,66 @@
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+#include  "plugin.h"
+
+DLGTEMPLATE DLGID_PLUGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Image Plugin Properties", DLGID_PLUGIN, 0, 58, 200, 161, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Active Image", GBID_ACTIVEIMAGEPROPERTIES, 5, 75, 
+                        190, 59
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_ACTIVEENABLED, 10, 116, 60, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Image Filename: ", STID_ACTIVEIMAGELABEL, 11, 147, 
+                        60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "NONE", STID_ACTIVEIMAGE, 11, 139, 135, 7, ES_MARGIN
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Browse...", PBID_CHANGEACTIVEIMAGE, 151, 139, 40, 
+                        10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        GROUPBOX        "Inactive Image", GBID_INACTIVEIMAGEPROPERTIES, 5, 
+                        15, 190, 59
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CHECKBOX        "Enabled", CBID_INACTIVEENABLED, 10, 56, 50, 10
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Ok", PBID_OK, 5, 3, 40, 12
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        PUSHBUTTON      "Cancel", PBID_CANCEL, 55, 3, 40, 12
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SLIDER          IDSL_INACTIVERED, 59, 42, 131, 20, SLS_BUTTONSTOP | SLS_BOTTOM |
+                        WS_GROUP
+                        CTLDATA 12, 0, 9, 0, 5, 0
+        SLIDER          IDSL_INACTIVEGREEN, 59, 30, 131, 12, SLS_BUTTONSTOP | 
+                        WS_GROUP
+                        CTLDATA 12, 0, 9, 0, 5, 0
+        SLIDER          IDSL_INACTIVEBLUE, 59, 18, 131, 12, SLS_BUTTONSTOP | 
+                        WS_GROUP
+                        CTLDATA 12, 0, 9, 0, 5, 0
+        LTEXT           "Red", 8106, 9, 46, 51, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Green", 8107, 9, 32, 51, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Blue", 8108, 9, 20, 51, 8
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        SLIDER          IDSL_ACTIVERED, 59, 102, 131, 20, SLS_BUTTONSTOP | SLS_BOTTOM
+                        WS_GROUP
+                        CTLDATA 12, 0, 9, 0, 5, 0
+        SLIDER          IDSL_ACTIVEGREEN, 59, 90, 131, 12, SLS_BUTTONSTOP | 
+                        WS_GROUP
+                        CTLDATA 12, 0, 9, 0, 5, 0
+        SLIDER          IDSL_ACTIVEBLUE, 59, 78, 131, 12, SLS_BUTTONSTOP | 
+                        WS_GROUP
+                        CTLDATA 12, 0, 9, 0, 5, 0
+        LTEXT           "Red", 8117, 9, 106, 51, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Green", 8119, 9, 92, 51, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        LTEXT           "Blue", 8125, 9, 80, 51, 8
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    END
+END

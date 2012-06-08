@@ -1,0 +1,17 @@
+
+/******************************************************************************
+
+	Copyright Netlabs, 1998, this code may not be used for any military purpose
+
+******************************************************************************/
+
+
+rcinclude plugin.dlg
+#include <os2.h>
+#include "plugin.h"
+
+// Define any other resources here.  Help tables, bitmaps, etc..
+MENU IDMENU_MAINMENU
+BEGIN
+  MENUITEM  "Drop a Color here", IDMENUITEM_MAIN
+END

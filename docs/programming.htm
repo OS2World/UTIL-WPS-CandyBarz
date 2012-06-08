@@ -1,0 +1,531 @@
+<HTML>
+<HEAD>
+
+<TITLE>CandyBarZ programming HowTo</TITLE>
+
+</HEAD>
+<BODY>
+<A NAME="contents"><H2>Contents</H2></A>
+<OL>
+<LI><A HREF="#procedures">Creating new window procedures</A></LI>
+<UL>
+<LI><A HREF="#register">Registering the new procedure in _dll_init</A>
+<LI><A HREF="#cbinclude">Updating candybarz.h</A>
+<LI>Enabling plugins for the new proc (to be written)
+<LI><A HREF="#tellingcb">Telling CB about the proc plugins</A>
+</UL>
+<LI><A HREF="#themebuilder">Themebuilder</A></LI>
+  <UL>
+    <LI><A HREF="#tbaddpage">Adding configuration pages to the notebook</A></LI>
+    <LI><A HREF="#tbcustomize">Enabling customizing of new procedures</A></LI>
+  </UL>
+
+</OL>
+<HR>
+<A NAME="procedures"><H2>1.Creating new window procedures</H2></A>
+<A NAME="register"><H3>Registering the new procedure</H3></A>
+<P>
+New procs are registered during processing of the init function of candybar.dll
+during PM initialization. Add the following code to candybarz.c to
+register the new procedure:
+</P>
+<PRE>
+ULONG _System _DLL_InitTerm(HMODULE hmod, ULONG ulInitTerm)
+{
+
+[...]
+
+    switch (ulInitTerm)
+    {
+        case 0:                    // initialization
+        {
+[...]
+
+
+/* Get the class info of the class we want to subclass */
+
+            // get original menu class info
+            if (!WinQueryClassInfo(NULLHANDLE, WC_MENU, &ciMenu))
+               return (0);
+
+/* Go on with processing */
+
+[...]
+
+            pCBZShare->ulDataOffset         = ciFrame.cbWindowData;
+            pCBZShare->pTBOrigWndProc       = ciTB.pfnWindowProc;
+            pCBZShare->pFrameOrigWndProc    = ciFrame.pfnWindowProc;
+            pCBZShare->pButtonOrigWndProc   = ciButton.pfnWindowProc;
+/* Save our window proc */
+            pCBZShare->pMenuOrigWndProc     = ciMenu.pfnWindowProc;
+            pCBZShare->pStaticOrigWndProc   = ciStatic.pfnWindowProc;
+            pCBZShare->pNotebookOrigWndProc = ciNotebook.pfnWindowProc; // This does not hurt
+
+[...}
+            // register menu class
+            if (!WinRegisterClass(NULLHANDLE,
+                                  WC_MENU,
+                                  CandyBarZMenuProc,
+                                  ciMenu.flClassStyle | CS_PUBLIC,
+                                  ciMenu.cbWindowData))
+                 return (0);
+/* Done */
+
+[...]            
+        }
+        break;
+
+</PRE>
+<P>
+Some window classes are only avaiable when candybar.dll is loaded in
+a specific order. Currently the <B>SYS_DLL->LoadPerProcess</B> entry in *.ini
+looks like this after installation:
+
+<PRE>
+PMCTRL SND CANDYBAR
+</PRE>
+
+WC_NOTEBOOK, WC_CONTAINER and probably other classes are only avaiable after
+reordering:
+<PRE>
+CANDYBAR PMCTRL SND
+</PRE>
+To deal with this registering of those classes should look like this:
+</P>
+<PRE>
+ULONG _System _DLL_InitTerm(HMODULE hmod, ULONG ulInitTerm)
+{
+    BOOL bNotebook=TRUE;
+[...]
+
+    switch (ulInitTerm)
+    {
+        case 0:                    // initialization
+        {
+[...]
+
+
+/* Get the class info of the class we want to subclass */
+
+            // get original notebook background class info
+            if (!WinQueryClassInfo(NULLHANDLE, WC_NOTEBOOK, &ciNotebook)) {           
+               bNotebook=FALSE;
+               /* Ok, we couldn't get the classinfo so set a flag to indicate
+                  that we can't replace the proc later. */
+            }
+
+/* Go on with processing */
+
+[...]
+
+            pCBZShare->ulDataOffset         = ciFrame.cbWindowData;
+            pCBZShare->pTBOrigWndProc       = ciTB.pfnWindowProc;
+            pCBZShare->pFrameOrigWndProc    = ciFrame.pfnWindowProc;
+            pCBZShare->pButtonOrigWndProc   = ciButton.pfnWindowProc;
+/* Save our window proc */
+            pCBZShare->pMenuOrigWndProc     = ciMenu.pfnWindowProc;
+            pCBZShare->pStaticOrigWndProc   = ciStatic.pfnWindowProc;
+            pCBZShare->pNotebookOrigWndProc = ciNotebook.pfnWindowProc; // This does not hurt
+
+[...}
+
+            // Since we can't always query the classinfo we check if we can replace this class
+            if(bNotebook) {
+              // register notebook class
+              if (!WinRegisterClass(NULLHANDLE,
+                                    WC_NOTEBOOK,
+                                    CandyBarZNotebookProc,
+                                    ciNotebook.flClassStyle | CS_PUBLIC,
+                                    ciNotebook.cbWindowData)) {
+                return (0);
+              }
+            }
+
+
+/* Done */
+
+[...]            
+        }
+        break;
+
+
+</PRE>
+<P>
+<A HREF="#contents">Contents</A>
+</P>
+
+<HR>
+
+<A NAME="cbinclude"><H3>Updating candybarz.h</H3></A>
+<P>
+You have to update some structs in <B>candybarz.h</B>:
+<PRE>
+//used to store a list of plugins in shared memory!
+typedef struct
+{
+[...]
+    BOOL    bNoteBookBackgroundEnabled;
+    short   sNoteBookBackgroundIndex;
+    BOOL    bScrollBarEnabled;
+    short   sScrollBarIndex;
+    BOOL    bContainerEnabled;
+    short   sContainerIndex;
+    BOOL    bDummyEnabled;
+    short   sDummyIndex;
+}PLUGINSET;
+</PRE>
+
+<PRE>
+typedef struct
+{
+[...]
+    PFNWP pNotebookOrigWndProc;
+    PFNWP pContainerOrigWndProc;
+    PFNWP pScrollBarOrigWndProc;
+    HWND  hwndWindowManagerObject;
+    ATOM  WMgrAtom;
+}
+CBZSHARE;
+</PRE>
+
+<PRE>
+// data structure for all window replacement data!  consolidated into 1 structure
+typedef struct
+{
+[...]
+    BOOL    bNoteBookBackgroundEnabled;
+    short   sNoteBookBackgroundIndex;
+    BOOL    bScrollBarEnabled;
+    short   sScrollBarIndex;
+    BOOL    bContainerEnabled;
+    short   sContainerIndex;
+    BOOL    bDummyEnabled;
+    short   sDummyIndex;
+}CBZDATA;
+</PRE>
+
+<PRE>
+[...]
+// The notebook window procedure
+MRESULT EXPENTRY CandyBarZNotebookProc(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2);
+#define CandyBarZNotebookPaintProc(a, b, c) CandyBarZGeneralPaintProc(a,b, FALSE, c, b->sNoteBookBackgroundIndex, b->sScrollBarIndex, CBZ_NOTEBOOK)
+[...]
+</PRE>
+
+</P>
+
+<P>
+<A HREF="#contents">Contents</A>
+</P>
+
+<HR>
+
+<A NAME="tellingcb">
+<H3>Telling CB about the procedure plugins</H3></A>
+In <B>setuputil.c</B> add the following code for apply:
+<PRE>
+
+// try loading each plugin module.
+// if opened sucessfully, call the plugin's CBZParseAttributes(hIni, keyValue, count) function
+// the plugin is responsible for writing data to the ini file.
+BOOL ApplyTheme(char themeFile[])
+{
+[...]
+
+    //insert here!!!!
+    count = ApplyBlock(themeFile, "TITLEBAR", szPluginBase, hIni, 0);
+    count = ApplyBlock(themeFile, "FRAME", szPluginBase, hIni, count);
+    count = ApplyBlock(themeFile, "FRAMEBRDR", szPluginBase, hIni, count);
+    count = ApplyBlock(themeFile, "PUSHBUTTON", szPluginBase, hIni, count);
+    count = ApplyBlock(themeFile, "RADIOBUTTON", szPluginBase, hIni, count);
+    count = ApplyBlock(themeFile, "CHECKBOX", szPluginBase, hIni, count);
+    count = ApplyBlock(themeFile, "MINMAX", szPluginBase, hIni, count);
+    count = ApplyBlock(themeFile, "MENU", szPluginBase, hIni, count);
+/* Insert our proc */
+    count = ApplyBlock(themeFile, "NOTEBOOK", szPluginBase, hIni, count);
+
+[...]
+}
+
+
+
+int ApplyBlock(char themeFile[], char szClass[], char szCBZBase[], HINI hIni, int count)
+{
+[...]
+
+
+    //update the shared memory.
+    if (strcmp(szClass, "TITLEBAR") == 0)
+        pCBZShare->plugins.sTitlebarIndex = count;
+    else if (strcmp(szClass, "FRAME") == 0)
+        pCBZShare->plugins.sFrameBackgroundIndex = count;
+    else if (strcmp(szClass, "FRAMEBRDR") == 0)
+        pCBZShare->plugins.sFrameBorderIndex = count;
+    else if (strcmp(szClass, "PUSHBUTTON") == 0)
+        pCBZShare->plugins.sPushButtonIndex = count;
+    else if (strcmp(szClass, "RADIOBUTTON") == 0)
+        pCBZShare->plugins.sRadioButtonIndex = count;
+    else if (strcmp(szClass, "CHECKBOX") == 0)
+        pCBZShare->plugins.sCheckBoxIndex = count;
+    else if (strcmp(szClass, "MINMAX") == 0)
+        pCBZShare->plugins.sMinMaxIndex = count;
+    else if (strcmp(szClass, "MENU") == 0)
+        pCBZShare->plugins.sMenuIndex = count;
+/* Add our new proc here */
+    else if (strcmp(szClass, "NOTEBOOK") == 0)
+        pCBZShare->plugins.sNoteBookBackgroundIndex = count;
+
+    if (!runParser(szPluginBase, szClass, &List, szError))
+    {
+        PSUTErrorFunc(NULLHANDLE, "Error", "ApplyBlock", szError, 0UL);
+        return count;
+    }
+
+    pCBZShare->plugins.cbCount = count + List.cbPlugins;
+    strcpy(pCBZShare->szThemeFilename, themeFile);
+
+    if (List.cbPlugins > 0)
+    {
+        if (strcmp(szClass, "TITLEBAR") == 0)
+            pCBZShare->plugins.bTitlebarEnabled = TRUE;
+        else if (strcmp(szClass, "FRAME") == 0)
+            pCBZShare->plugins.bFrameBackgroundEnabled = TRUE;
+        else if (strcmp(szClass, "FRAMEBRDR") == 0)
+            pCBZShare->plugins.bFrameBorderEnabled = TRUE;
+        else if (strcmp(szClass, "PUSHBUTTON") == 0)
+            pCBZShare->plugins.bPushButtonEnabled = TRUE;
+        else if (strcmp(szClass, "RADIOBUTTON") == 0)
+            pCBZShare->plugins.bRadioButtonEnabled = TRUE;
+        else if (strcmp(szClass, "CHECKBOX") == 0)
+            pCBZShare->plugins.bCheckBoxEnabled = TRUE;
+        else if (strcmp(szClass, "MINMAX") == 0)
+            pCBZShare->plugins.bMinMaxEnabled = TRUE;
+        else if (strcmp(szClass, "MENU") == 0)
+            pCBZShare->plugins.bMenuEnabled = TRUE;
+/* Add our new proc here */
+        else if (strcmp(szClass, "NOTEBOOK") == 0)
+            pCBZShare->plugins.bNoteBookBackgroundEnabled = TRUE;
+
+    }
+    else
+    {
+        if (strcmp(szClass, "TITLEBAR") == 0)
+            pCBZShare->plugins.bTitlebarEnabled = FALSE;
+        else if (strcmp(szClass, "FRAME") == 0)
+            pCBZShare->plugins.bFrameBackgroundEnabled = FALSE;
+        else if (strcmp(szClass, "FRAMEBRDR") == 0)
+            pCBZShare->plugins.bFrameBorderEnabled = FALSE;
+        else if (strcmp(szClass, "PUSHBUTTON") == 0)
+            pCBZShare->plugins.bPushButtonEnabled = FALSE;
+        else if (strcmp(szClass, "RADIOBUTTON") == 0)
+            pCBZShare->plugins.bRadioButtonEnabled = FALSE;
+        else if (strcmp(szClass, "CHECKBOX") == 0)
+            pCBZShare->plugins.bCheckBoxEnabled = FALSE;
+        else if (strcmp(szClass, "MINMAX") == 0)
+            pCBZShare->plugins.bMinMaxEnabled = FALSE;
+        else if (strcmp(szClass, "MENU") == 0)
+            pCBZShare->plugins.bMenuEnabled = FALSE;
+/* Add our new proc here */
+        else if (strcmp(szClass, "NOTEBOOK") == 0)
+            pCBZShare->plugins.bNoteBookBackgroundEnabled = FALSE;
+
+    }
+
+[...]
+}
+</PRE>
+
+<PRE>
+SaveSettings(CBZSHARE *pCBZShare, PLUGIN_LIST *pList, HINI hIni, char szClassName[], char szCustomAppName[], char szCBZBase[], char szPluginBase[], int baseIndex)
+{
+[...]
+
+</PRE>
+<P>
+In <B>CandyBarZCommon.c</B> the function <B>CandyBarZWindowCreate(HWND hwnd)</B>
+has to be changed so CB copies the new proc data to the window data. 
+</P>
+
+<HR>
+<A NAME="themebuilder"><H2>2.Themebuilder</H2></A>
+
+<A NAME="tbaddpage"><H3>Adding configuration pages to the notebook</H3></A>
+<P>Any new procedure needs customizing by the user done with the ThemBuilder.
+So we need a corresponding notebook page.
+Simply add in <B>themebuilder.c</B> a line as shown in the following example:
+</P>
+<PRE>
+// main dialog proc
+MRESULT EXPENTRY ThemeDlgProc(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
+{
+    HWND                hwndHelp;
+    HWND                hwndNoteBook;
+    static HWND         hwndPreview = NULLHANDLE;
+    HELPINIT            helpInit = {0};
+    short               sControlId;
+    short               sHelpId;
+    ULONG               ulRc;
+    static HPOINTER     icon;
+    HWND                hwndFocus = WinQueryFocus( HWND_DESKTOP );
+
+    switch (msg)
+    {
+        case WM_INITDLG:
+        {
+
+[...]
+
+            // set up notebook
+            hwndNoteBook = WinWindowFromID(hwnd, NBID_SETUP);
+
+[...]
+
+            AddNotebookPage(hwndNoteBook, DLGID_DEFAULTS, WindowClassDlgProc,
+                            "~RadioButtons", "", "", TRUE, "RADIOBUTTON");
+            AddNotebookPage(hwndNoteBook, DLGID_DEFAULTS, WindowClassDlgProc,
+                            "~CheckBoxes", "", "", TRUE, "CHECKBOX");
+            AddNotebookPage(hwndNoteBook, DLGID_DEFAULTS, WindowClassDlgProc,
+                            "M~in/Max", "", "", TRUE, "MINMAX");
+            AddNotebookPage(hwndNoteBook, DLGID_DEFAULTS, WindowClassDlgProc,
+                            "~Menus", "", "", TRUE, "MENU");
+            AddNotebookPage(hwndNoteBook, DLGID_DEFAULTS, WindowClassDlgProc,
+                            "~Notebook Background", "", "", TRUE, "NOTEBOOK");
+
+/* This inserts the new Notebook page at the end of the notebook */
+            AddNotebookPage(hwndNoteBook, DLGID_DEFAULTS, WindowClassDlgProc,
+                            "My new ~Page", "", "", TRUE, "WNDCLASS");
+
+
+            // set the dialog's icon
+            icon = WinLoadPointer(HWND_DESKTOP, NULLHANDLE, DLGID_THEMESETUP);
+            WinSendMsg(hwnd, WM_SETICON, MPFROMLONG(icon), NULL);
+        }
+        break;
+
+...
+</PRE>
+<P>
+Any configuration data will automatically be saved in the configuration file in
+the section <B>WNDCLASS</B>. There's no need to care about it. All the code
+for saving and restoring is in the plugins.
+</P>
+<P>
+<A HREF="#contents">Contents</A>
+</P>
+<HR>
+
+<A NAME="tbcustomize"><H3>Enabling customizing of new procedures</H3></A>
+<P>
+The user may select different plugins for any drawing procedure.
+</P>
+<P>
+In <B>WindowClassDlgProc.c</B> add the following lines to enable the notebook
+page to see certain plugins:
+</P>
+<PRE>
+
+//Generic Window Procedure for the Notebook pages for each window class
+MRESULT EXPENTRY WindowClassDlgProc(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
+{
+
+[...]
+        case WM_INITDLG:
+        {
+
+[...]
+
+            //store the ClassName for this Notebook page
+            strcpy(pDlgData->szClassName, (char *) PVOIDFROMMP(mp2));
+            //set the lWindowType flags for this page.
+            if (strcmp(pDlgData->szClassName, "TITLEBAR") == 0)
+                pDlgData->lWindowType = CBZ_TITLEBAR;
+            else if (strcmp(pDlgData->szClassName, "FRAME") == 0)
+                pDlgData->lWindowType = CBZ_FRAME;
+            else if (strcmp(pDlgData->szClassName, "FRAMEBRDR") == 0)
+                pDlgData->lWindowType = CBZ_FRAMEBRDR;
+            else if (strcmp(pDlgData->szClassName, "PUSHBUTTON") == 0)
+                pDlgData->lWindowType = CBZ_PUSHBUTTON;
+            else if (strcmp(pDlgData->szClassName, "RADIOBUTTON") == 0)
+                pDlgData->lWindowType = CBZ_RADIOBUTTON;
+            else if (strcmp(pDlgData->szClassName, "CHECKBOX") == 0)
+                pDlgData->lWindowType = CBZ_CHECKBOX;
+            else if (strcmp(pDlgData->szClassName, "MINMAX") == 0)
+                pDlgData->lWindowType = CBZ_MINMAX;
+            else if (strcmp(pDlgData->szClassName, "MENU") == 0)
+                pDlgData->lWindowType = CBZ_MENU;
+
+/* Enable the page to load plugins for our procedure */
+
+            else if (strcmp(pDlgData->szClassName, "WNDCLASS") == 0)
+                pDlgData->lWindowType = CBZ_WNDCLASS;
+
+/* The constant CBZ_WNDCLASS must be defined in candybarz.h. A plugin marks
+   itself as selectable for a particular window proc using the corresponding
+   constant. */
+
+            else //add other window classes here
+                pDlgData->lWindowType = 0;
+
+[...]
+
+        }
+        break;
+
+</PRE>
+<P>
+For any procedure a constant is defined in <B>candybarz.h</B>. Only plugins
+marked with this constant are shown on the notebook page and may be selected.
+Be sure to add the constant also to <B>pluginutils.h></B> so plugins can use
+the constant, too.
+</P>
+<P>
+The themebuilder has to run the init functions of any plugin. To enable this
+for new procedures add the following code to <B>themebuilder.c</B>:
+</P>
+<PRE>
+
+// main dialog proc
+MRESULT EXPENTRY ThemeDlgProc(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
+{
+
+[...]
+
+                case PBID_OPEN:
+                {
+
+[...]
+                    //Get the hwnd of the Menu page
+                    pageID = (ULONG) WinSendMsg(hwndNotebook, BKM_QUERYPAGEID,
+                             MPFROMLONG(pageID), MPFROM2SHORT(BKA_NEXT, 0));
+                    hwndChild = (HWND) WinSendMsg(hwndNotebook, BKM_QUERYPAGEWINDOWHWND,
+                                         MPFROMLONG(pageID), MPFROMLONG(0));
+                    OpenThemeClass(hwndChild, filedlg.szFullFile,
+                                   ((DLGDATA *) WinQueryWindowPtr(hwndChild, QWL_USER))->pCBZData,
+                                   "MENU");
+
+/* Add our new proc here */
+
+                    //Get the hwnd of the WNDCLASS page
+                    pageID = (ULONG) WinSendMsg(hwndNotebook, BKM_QUERYPAGEID,
+                             MPFROMLONG(pageID), MPFROM2SHORT(BKA_NEXT, 0));
+                    hwndChild = (HWND) WinSendMsg(hwndNotebook, BKM_QUERYPAGEWINDOWHWND,
+                                         MPFROMLONG(pageID), MPFROMLONG(0));
+                    OpenThemeClass(hwndChild, filedlg.szFullFile,
+                                   ((DLGDATA *) WinQueryWindowPtr(hwndChild, QWL_USER))->pCBZData,
+                                   "WNDCLASS");
+
+/* Be sure to maintain any specific order */ 
+
+                    //Add calls for the remaining window classes here, changing the last parameter.
+                }
+                break;
+
+</PRE>
+
+<P>
+<A HREF="#contents">Contents</A>
+</P>
+
+<HR>
+</BODY>
+</HTML>
