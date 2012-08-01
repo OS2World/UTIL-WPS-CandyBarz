@@ -9,8 +9,13 @@ LICENSE
 
 COMPILE TOOLS
 =============
+* GNU make
    
 
 AUTHORS
 =============
 Jack Troughton
+
+LINKS
+=============
+* http://candybarz.netlabs.org
