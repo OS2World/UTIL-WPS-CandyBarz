@@ -5,7 +5,7 @@ WPS - CandyBarZ is the titlebar replacement for OS/2.
 
 LICENSE
 =============
-
+* GNU GPL V2
 
 COMPILE TOOLS
 =============
